@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export interface ChatState {
-
+  [key: string]: unknown;
 }
 
 const useQuestionLoading = create<ChatState>((set) => ({
