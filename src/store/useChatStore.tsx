@@ -1,20 +1,20 @@
-import { create } from "zustand";
+// import { create } from "zustand";
 
-export interface ChatState {
-  [key: string]: unknown;
-}
+// export interface ChatState {
+//   [key: string]: unknown;
+// }
 
-const useQuestionLoading = create<ChatState>((set) => ({
-  loading: {},
+// const useQuestionLoading = create<ChatState>((set) => ({
+//   loading: {},
 
-  changeLoading: (id, loading) => {
-    set((state) => ({
-      loading: {
-        ...state.loading,
-        [id]: loading,
-      },
-    }));
-  },
-}));
+//   changeLoading: (id, loading) => {
+//     set((state) => ({
+//       loading: {
+//         ...state.loading,
+//         [id]: loading,
+//       },
+//     }));
+//   },
+// }));
 
-export default useQuestionLoading;
+// export default useQuestionLoading;
