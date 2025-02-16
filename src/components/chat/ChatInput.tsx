@@ -31,34 +31,29 @@ const ChatInput = () => {
   const isLoading = form.formState.isSubmitting;
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      addMessage(values.question, "question");
+
+      form.setValue("question", "");
+      const id = getMessageId(values.question);
+
+      if (id) {
+        changeLoading(id, true);
+      }
+
       const response = await axios.get(
-        `https://homi23-taqneeq2.hf.space/test?pussy=${values.question}`
+        `https://homi23-taqneeq2.hf.space/test?query=${values.question}`
       );
-      console.log(response.data);
+
+      if (id) changeLoading(id, false);
+
+      addMessage(response.data, "answer");
+
+      const aId = getMessageId(response.data);
+
+      if (aId) changeLoading(aId, true);
     } catch (err) {
       console.error(err);
     }
-
-    // Add user message with `loading: false`
-    addMessage(values.question, "question");
-
-    // Get the message ID
-    const id = getMessageId(values.question);
-    if (id) {
-      changeLoading(id, true); // Update loading state only if id exists
-    }
-
-    form.setValue("question", "");
-
-    setTimeout(() => {
-      if (id) changeLoading(id, false); // Ensure valid id before using it
-
-      // Add bot response with `loading: true`
-      addMessage("hello bhai kaise ho", "answer");
-      const aId = getMessageId("hello bhai kaise ho");
-
-      if (aId) changeLoading(aId, false);
-    }, 1000);
   }
 
   useEffect(() => {
@@ -97,12 +92,12 @@ const ChatInput = () => {
                     />
                     <button
                       type="submit"
-                      className="bg-sex-100 p-1 rounded-full ml-2"
+                      className="dark:bg-sex-100 p-1 rounded-full ml-2"
                       disabled={isLoading}
                     >
                       <ArrowUp
                         size={25}
-                        className="text-liberty-blue"
+                        className="dark:text-liberty-blue"
                       />
                     </button>
                   </div>
