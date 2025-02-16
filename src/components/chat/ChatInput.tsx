@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import useChatStore from "@/store/useChatStore";
 import useQuestionLoading from "@/store/useQuestionLoading";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { ArrowUp, Search } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -19,7 +18,7 @@ const formSchema = z.object({
 const ChatInput = () => {
   const [value, setValue] = useState("");
   const { changeLoading } = useQuestionLoading();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const { addMessage, getMessageId } = useChatStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -30,7 +29,6 @@ const ChatInput = () => {
   });
 
   const isLoading = form.formState.isSubmitting;
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await axios.get("https://homi23-taqneeq2.hf.space/test");
@@ -38,15 +36,26 @@ const ChatInput = () => {
     } catch (err) {
       console.error(err);
     }
+
+    // Add user message with `loading: false`
     addMessage(values.question, "question");
+
+    // Get the message ID
     const id = getMessageId(values.question);
-    changeLoading(id, true);
+    if (id) {
+      changeLoading(id, true); // Update loading state only if id exists
+    }
+
     form.setValue("question", "");
+
     setTimeout(() => {
-      changeLoading(id, false);
+      if (id) changeLoading(id, false); // Ensure valid id before using it
+
+      // Add bot response with `loading: true`
       addMessage("hello bhai kaise ho", "answer");
       const aId = getMessageId("hello bhai kaise ho");
-      changeLoading(aId, true);
+
+      if (aId) changeLoading(aId, false);
     }, 1000);
   }
 
