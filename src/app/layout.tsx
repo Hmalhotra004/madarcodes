@@ -25,7 +25,7 @@ export default function RootLayout({
       <head>
         <title>Mardarcodes</title>
       </head>
-      <body className={cn(fonts)}>
+      <body className={cn(fonts, "bg-sex-400")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

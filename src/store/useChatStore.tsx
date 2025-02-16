@@ -1,20 +1,30 @@
-// import { create } from "zustand";
+import { v4 as uuiV4 } from "uuid";
+import { create } from "zustand";
 
-// export interface ChatState {
-//   [key: string]: unknown;
-// }
+export type Chat = {
+  id: string;
+  message: string;
+  byUser: "question" | "answer";
+};
 
-// const useQuestionLoading = create<ChatState>((set) => ({
-//   loading: {},
+export interface ChatState {
+  chats: Chat[];
+  addMessage: (message: string, byUser: "question" | "answer") => void;
+  getMessageId: (message: string) => string | undefined;
+}
 
-//   changeLoading: (id, loading) => {
-//     set((state) => ({
-//       loading: {
-//         ...state.loading,
-//         [id]: loading,
-//       },
-//     }));
-//   },
-// }));
+const useChatStore = create<ChatState>((set, get) => ({
+  chats: [],
 
-// export default useQuestionLoading;
+  addMessage: (message, byUser) =>
+    set((state) => ({
+      chats: [...state.chats, { id: uuiV4(), message, byUser }],
+    })),
+
+  getMessageId: (message) => {
+    const chat = get().chats.find((chat) => chat.message === message);
+    return chat ? chat.id : undefined;
+  },
+}));
+
+export default useChatStore;

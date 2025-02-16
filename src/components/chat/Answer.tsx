@@ -1,10 +1,9 @@
 "use client";
 import ActionTooltip from "@/components/ActionTooltip";
 import useQuestionLoading from "@/store/useQuestionLoading";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-import { CheckIcon, CopyIcon, RefreshCcw } from "lucide-react";
+import { CheckIcon, CopyIcon } from "lucide-react";
 
 interface AnswerProps {
   answer: string;
@@ -22,15 +21,8 @@ const Answer = ({ answer, id }: AnswerProps) => {
   }
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col ml-10">
       <div className="mb-2 text-slate-200 font-medium text-xl flex gap-x-2 items-start group">
-        <Image
-          src="/auth3.png"
-          alt="logo"
-          width={25}
-          height={25}
-          className="mt-[4px]"
-        />
         {loading[id] ? (
           <TypingEffect
             answer={answer}
@@ -43,7 +35,7 @@ const Answer = ({ answer, id }: AnswerProps) => {
         )}
       </div>
       {!loading[id] && (
-        <div className="flex gap-x-4 ml-9 mb-4 items-center justify-start">
+        <div className="flex gap-x-4 mb-4 items-center justify-start">
           {!copied ? (
             <ActionTooltip label="Copy to Clipboard">
               <CopyIcon
@@ -58,12 +50,6 @@ const Answer = ({ answer, id }: AnswerProps) => {
               className="cursor-pointer transition"
             />
           )}
-          <ActionTooltip label="Regenerate">
-            <RefreshCcw
-              size={20}
-              className="cursor-pointer"
-            />
-          </ActionTooltip>
         </div>
       )}
     </section>

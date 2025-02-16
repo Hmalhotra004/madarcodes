@@ -10,6 +10,9 @@ export default {
   theme: {
     extend: {
       colors: {
+        "sex-400": "#213555",
+        "sex-300": "#3E5879",
+        "sex-100": "#F5EFE7",
         "liberty-blue": "#0b081d",
         "spanish-roast": "#130f2b",
         "ceremonial-purple": "#312a5b",
