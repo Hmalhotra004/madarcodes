@@ -21,11 +21,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <title>Mardarcodes</title>
       </head>
-      <body className={cn(fonts, "bg-sex-400")}>
+      <body className={cn(fonts, "dark:bg-sex-400")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
