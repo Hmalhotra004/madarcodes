@@ -31,7 +31,9 @@ const ChatInput = () => {
   const isLoading = form.formState.isSubmitting;
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await axios.get("https://homi23-taqneeq2.hf.space/test");
+      const response = await axios.get(
+        `https://homi23-taqneeq2.hf.space/test?pussy=${values.question}`
+      );
       console.log(response.data);
     } catch (err) {
       console.error(err);
@@ -83,7 +85,7 @@ const ChatInput = () => {
                         `w-full border-none border-0 focus-visible:ring-offset-0 focus-visible:ring-0 mx-1
                            placeholder:text-cold-dark placeholder:text-lg text-md dark:bg-transparent`
                       )}
-                      placeholder="Ask and u shall receive"
+                      placeholder="Tell me about your business"
                       {...field}
                       disabled={isLoading}
                       autoComplete="off"

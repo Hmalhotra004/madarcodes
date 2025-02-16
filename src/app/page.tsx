@@ -48,8 +48,13 @@ const ChatPage = () => {
             <div ref={bottomRef} />
           </div>
         ) : (
-          <div className="flex flex-grow flex-1 items-center justify-center">
-            <h1 className="text-2xl font-semibold text-center">Hello there</h1>
+          <div className="flex flex-grow flex-col flex-1 items-center justify-center">
+            <h1 className="text-4xl font-semibold text-center">
+              Welcome to MadarCodes
+            </h1>
+            <h1 className="text-2xl font-semibold text-center mt-1">
+              How can i help you today?
+            </h1>
           </div>
         )}
       </main>
